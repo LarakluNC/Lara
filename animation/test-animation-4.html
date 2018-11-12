@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+	body {
+		padding:0;
+		margin:0;
+	}
+	.large-block {
+		height:80vh;
+		width:80vw;
+		margin:10vh 10vw;
+		float:right;
+		transition: width 0.7s;
+		overflow: hidden;
+	}
+
+	.large-block img {
+		overflow:hidden;
+		width:80vw;
+		height:auto;
+		z-index:0;
+		display: none;
+	}
+
+	@media (orientation: portrait) {
+		.large-block img {
+			height:80vh;
+			width:auto;
+		}
+	}
+	@media (orientation: landscape) {
+		.large-block img {
+			overflow:hidden;
+			min-height:80vh;
+			width:80vw;
+			height:auto;
+		}
+	}
+
+	@keyframes backgroundSize {
+		0% {
+			background-size: 150%;
+		}
+		100% {
+			background-size: cover;
+		}
+	}
+	.inner {
+		background-color: rgba(239, 80, 101, 0.4);
+	}
+	
+	.grid {
+		display: grid;
+		grid-template-rows:1fr 1fr 1fr 1fr; 
+		grid-template-columns: 1fr 1fr 1fr 1fr; 
+		background-color:blue;
+		height:80vh;
+		width:80vw;
+		z-index:2;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		setTimeout(function(){ 
+			$('.b4').addClass('b4-animate');
+		}, 700);
+
+		$('body').on('click', function(){ 
+			setTimeout(function(){ 
+  				$('.b4').addClass('reveal');
+  			}, 0);
+  			setTimeout(function(){ 
+  				$('.b3').addClass('reveal');
+  			}, 500);
+  			setTimeout(function(){ 
+  				$('.b2').addClass('reveal');
+  			}, 1000);
+  			setTimeout(function(){ 
+  				$('.b1').addClass('reveal');
+  			}, 1500);
+
+
+			setTimeout(function(){ 
+  				$('.large-block').addClass('reveal');
+  			}, 2000);
+		});
+	});
+</script>
+<body>
+	
+<div class="large-block">
+	<img src="fitness.jpg">
+	<div class="grid">
+		<div class="small-block b1">
+			<div class="inner"></div>
+		</div>
+		<div class="small-block b2">
+			<div class="inner"></div>
+		</div>
+		<div class="small-block b3">
+			<div class="inner"></div>
+		</div>
+		<div class="small-block b4">
+			<div class="bottomHalf">
+		</div>
+	</div>	
+</div>
+
+
+</body>
+
+</html>

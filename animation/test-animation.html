@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+	.large-block {
+		height:400px;
+		width:calc(100vw - 100px);
+		background-color:blue;
+		float:right;
+		margin:50px;
+		transition: width 2s;
+	}
+	.small-block {
+		width:25%;
+		float:right;
+		background-color: red;
+		height:400px;
+		transition: width 1.5s;
+	}
+	.b1 {
+		opacity:0.5;
+	}
+	.b2 {
+		opacity:0.4;
+	}
+	.b3 {
+		opacity:0.3;
+	}
+	.b4 {
+		opacity:0.2;
+	}
+	.reveal {
+		width:0px;
+	}
+</style>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('body').on('click', function(){ 
+			$('.small-block').addClass('reveal');
+			setTimeout(function(){ 
+  				$('.large-block').addClass('reveal');
+  			}, 1000);
+		});
+	});
+</script>
+<body>
+	
+<div class="large-block">
+	<div class="small-block b1"></div>
+	<div class="small-block b2"></div>
+	<div class="small-block b3"></div>
+	<div class="small-block b4"></div>
+</div>
+
+
+</body>
+
+</html>
