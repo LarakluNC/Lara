@@ -53,7 +53,11 @@
 	}
 	.inner {
 		background-color: rgba(239, 80, 101, 0.4);
+		transform: translateX(-100%);
 		transition: transform 1s;
+	}
+	.slide2 .inner {
+		background-color: rgba(239, 200, 30, 0.4);
 	}
 	.innerHalf {
 		height:50%;
@@ -70,13 +74,14 @@
 		grid-row-start:1;
 		grid-row-end:3;
 		overflow: hidden;
-		transition: transform 1s;
+		transition:transform 2s;
 	}
 	.b4 .overflow2 {
 		grid-row-start:3;
 		grid-row-end:5;
 		overflow: hidden;
-		transition: transform 1s;
+		transition:transform 2s;
+
 	}
 	.b4 .inner {
 		opacity:0;
@@ -102,6 +107,9 @@
 		opacity:1;
 		transform:scale(1);
 	}
+	.load-swipe {
+		transform: translateX(0%);
+	}
 	.next-swipe {
 		transform: translateX(100%);
 	}
@@ -116,7 +124,7 @@
 		transition:width 2s;
 		z-index:5;
 	}
-	.wiper-previous {
+	.wiper-previous, .wiper-load {
 		height:100%;
 		background-color: #fff;
 		width:100%;
@@ -126,11 +134,17 @@
 		transition:left 2s;
 		z-index:5;
 	}
+	.wiper-load {
+		left:0;
+	}
 	.next-wipe {
 		width:100%;
 	}
 	.previous-wipe {
 		left:0;
+	}
+	.load-wipe {
+		left:100%;
 	}
 	.controls {
 		margin:auto;
@@ -143,41 +157,25 @@
 		display: inline-block;
 		padding:0 20px;	
 	}
-	.hide-slide {
-		display: none;
-	}
-	.slide2 {
-		z-index:2;
-	}
-	.slide1 {
-		z-index:1;
-	}
 
 </style>
 <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
+		var counter = 1;
+		$(".allSlides").hide();	
+		$(".slide" + counter).css("z-index","2");
+		$(".slide" + counter).show();
+
+		$('.wiper-load').addClass('load-wipe');
+		$('.inner, .overflow, .overflow2').addClass('load-swipe');	
 		setTimeout(function(){ 
-			$('.b4').addClass('b4-animate');
-		}, 700);
-
-		$('.previous').on('click', function(){ 
-			$('.inner, .overflow, .overflow2').addClass('previous-swipe');
-			setTimeout(function(){ 
-				$('.wiper-previous').addClass('previous-wipe');
-  			}, 500);
-  			setTimeout(function(){ 
-  				$('.slide1').addClass('hide-slide');
-  				$('.inner, .overflow, .overflow2').removeClass('previous-swipe');
-  				$('.wiper-previous').removeClass('previous-wipe');
-  			}, 2000);	
-		});
-
-
+			$('.b4').addClass('b4-animate');	
+		}, 700);	
+	
 		$('.next').on('click', function(){ 
+			counter += 1;
 			$('.inner, .overflow, .overflow2').addClass('next-swipe');
 			setTimeout(function(){ 
   				$('.wiper-next').addClass('next-wipe');
@@ -186,8 +184,32 @@
   				$('.slide1').addClass('hide-slide');
   				$('.inner, .overflow, .overflow2').removeClass('next-swipe');
   				$('.wiper-next').removeClass('next-wipe');
+  				$(".allSlides").hide();	
+  				$(".slide" + counter).css("z-index","2");
+				$(".slide" + counter).show();
   			}, 2000);	
+  			console.log(counter);
 		});
+	
+		
+		$('.previous').on('click', function(){ 
+			counter -= 1;
+			$('.inner, .overflow, .overflow2').addClass('previous-swipe');
+			setTimeout(function(){ 
+				$('.wiper-previous').addClass('previous-wipe');
+  			}, 500);
+  			setTimeout(function(){ 
+  				$('.slide1').addClass('hide-slide');
+  				$('.inner, .overflow, .overflow2').removeClass('previous-swipe');
+  				$('.wiper-previous').removeClass('previous-wipe');
+  				$(".allSlides").hide();	
+  				$(".slide" + counter).css("z-index","2");
+				$(".slide" + counter).show();
+  			}, 2000);	
+  			console.log(counter);
+
+		});
+		
 	});
 
 
@@ -196,10 +218,12 @@
 </script>
 <body>
 
+<div class="wiper-load"></div>
 <div class="wiper-next"></div>
 <div class="wiper-previous"></div>
+
 <div class="main-slide">
-	<div class="large-block slide1">
+	<div class="large-block allSlides slide1">
 		<img class="background-img" src="fitness.jpg">
 		<div class="small-block b1">
 			<div class="inner-container">
@@ -228,8 +252,8 @@
 		</div>	
 	</div>
 
-	<div class="large-block slide-2">
-		<img class="background-img" src="image.jpg">
+	<div class="large-block allSlides slide2">
+		<img class="background-img" src="image1.jpg">
 		<div class="small-block b1">
 			<div class="inner-container">
 				<div class="inner"></div>
