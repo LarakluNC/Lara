@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACC,UAAG;EACF,SAAS,ECFF,IAAI;ADIZ,UAAG;EACF,SAAS,ECLF,IAAI",
+"sources": ["../sass/_header.scss","../sass/_variables.scss"],
+"names": [],
+"file": "base.css"
+}

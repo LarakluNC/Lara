@@ -2,65 +2,136 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
 <style>
 	body {
 		padding:0;
 		margin:0;
+		font-family: 'Abril Fatface', cursive;
 	}
-	.large-block {
+	.main-slide {
 		height:80vh;
 		width:80vw;
 		margin:10vh 10vw;
-		float:right;
-		transition: width 0.7s;
 		overflow: hidden;
+		position: relative;
 	}
-
-	.large-block img {
-		overflow:hidden;
-		width:80vw;
-		height:auto;
-		z-index:0;
-		display: none;
+	.large-block {
+		height:100%;
+		width:100%;
+		float:right;
+		position: absolute;
 	}
-
-	@media (orientation: portrait) {
-		.large-block img {
-			height:80vh;
-			width:auto;
-		}
+	.background-img {
+		object-fit: cover;
+		height:100%;
+		position: absolute;
+		left:0;
+		top:0;
+		animation: backgroundSize 3s;
+		z-index:-1;
 	}
-	@media (orientation: landscape) {
-		.large-block img {
-			overflow:hidden;
-			min-height:80vh;
-			width:80vw;
-			height:auto;
-		}
+	.small-block {
+		width:25%;
+		float:right;
+		height:100%;
 	}
-
+	.inner-container {
+		width:100%;
+		height:100%;
+		display: grid;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+		overflow: hidden;	
+	}
 	@keyframes backgroundSize {
 		0% {
-			background-size: 150%;
+			transform:scale(1.1);
 		}
 		100% {
-			background-size: cover;
+			transform:scale(1);
 		}
 	}
 	.inner {
 		background-color: rgba(239, 80, 101, 0.4);
+		transition: transform 1s;
 	}
-	
-	.grid {
-		display: grid;
-		grid-template-rows:1fr 1fr 1fr 1fr; 
-		grid-template-columns: 1fr 1fr 1fr 1fr; 
-		background-color:blue;
-		height:80vh;
-		width:80vw;
+	.innerHalf {
+		height:50%;
+	}
+	.b3 .inner, .b1 .inner {
+		grid-row-start:1;
+		grid-row-end:4;
+	}
+	.b2 .inner {
+		grid-row-start:4;
+		grid-row-end:5;
+	}
+	.b4 .overflow {
+		grid-row-start:1;
+		grid-row-end:3;
+		overflow: hidden;
+		transition: transform 1s;
+	}
+	.b4 .overflow2 {
+		grid-row-start:3;
+		grid-row-end:5;
+		overflow: hidden;
+		transition: transform 1s;
+	}
+	.b4 .inner {
+		opacity:0;
+		width:100%;
+		height:100%;
+		background:url('watch.jpg');
+		background-size: cover;
+		background-repeat: no-repeat; 
+		transform:scale(1.5);
+		transition: opacity 3s, transform 2s;
+	}
+	.b4 .inner2 {
+		grid-row-start:3;
+		grid-row-end:5;
+		height:100%;
+		background:url('dumbell.jpg');
+		background-size: cover;
+		background-repeat: no-repeat; 
+		transform:scale(2.5);
+		transition: opacity 1s, transform 5s;
+	}	
+	.b4-animate .inner, .b4-animate .inner2 {
+		opacity:1;
+		transform:scale(1);
+	}
+	.next-swipe {
+		transform: translateX(100%);
+	}
+	.wiper {
+		height:100%;
+		background-color: #fff;
+		width:0%;
+		position: absolute;
+		transition:width 2s;
+		z-index:5;
+	}
+	.next-wipe {
+		width:100%;
+	}
+	.controls {
+		margin:auto;
+		text-align:center;
+		margin-top:-10vh;
+		z-index:999;
+		position: relative;
+	}
+	p {
+		display: inline-block;
+		padding:0 20px;	
+	}
+	.slide-2 {
+		display: none;
 		z-index:2;
 	}
+
 </style>
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -72,32 +143,60 @@
 			$('.b4').addClass('b4-animate');
 		}, 700);
 
-		$('body').on('click', function(){ 
+		$('.previous').on('click', function(){ 
+			$('.wiper').removeClass('next-wipe');
 			setTimeout(function(){ 
-  				$('.b4').addClass('reveal');
-  			}, 0);
-  			setTimeout(function(){ 
-  				$('.b3').addClass('reveal');
+  				$('.inner, .overflow, .overflow2').removeClass('next-swipe');
   			}, 500);
-  			setTimeout(function(){ 
-  				$('.b2').addClass('reveal');
-  			}, 1000);
-  			setTimeout(function(){ 
-  				$('.b1').addClass('reveal');
-  			}, 1500);
+		});
 
-
+		$('.next').on('click', function(){ 
+			$('.inner, .overflow, .overflow2').addClass('next-swipe');
 			setTimeout(function(){ 
-  				$('.large-block').addClass('reveal');
-  			}, 2000);
+  				$('.wiper').addClass('next-wipe');
+  			}, 500);
 		});
 	});
+
+
+  
+      	
 </script>
 <body>
-	
-<div class="large-block">
-	<img src="fitness.jpg">
-	<div class="grid">
+
+<div class="wiper"></div>
+<div class="main-slide">
+	<div class="large-block">
+		<img class="background-img" src="fitness.jpg">
+		<div class="small-block b1">
+			<div class="inner-container">
+				<div class="inner"></div>
+			</div>
+		</div>
+		<div class="small-block b2">
+			<div class="inner-container">
+				<div class="inner"></div>
+			</div>
+		</div>
+		<div class="small-block b3">
+			<div class="inner-container">
+				<div class="inner"></div>
+			</div>
+		</div>
+		<div class="small-block b4">
+			<div class="inner-container">
+				<div class="overflow">
+					<div class="inner"></div>
+				</div>
+				<div class="overflow2">
+					<div class="inner2"></div>
+				</div>
+			</div>
+		</div>	
+	</div>
+
+	<div class="large-block slide-2">
+		<img class="background-img" src="image1.jpg">
 		<div class="small-block b1">
 			<div class="inner"></div>
 		</div>
@@ -108,10 +207,22 @@
 			<div class="inner"></div>
 		</div>
 		<div class="small-block b4">
-			<div class="bottomHalf">
-		</div>
-	</div>	
+			<div class="overflow">
+				<div class="inner inner-swipe"></div>
+			</div>
+			<div class="overflow2">
+				<div class="inner2 inner-swipe"></div>
+			</div>
+		</div>	
+	</div>
 </div>
+
+<div class="controls">
+	<p class="button previous">< previous</p>
+	<p class="button next">next ></p>
+</div>
+
+</body>
 
 
 </body>
