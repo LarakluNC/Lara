@@ -19,8 +19,9 @@ body {
 }
 .background-img {
 	object-fit: cover;
-	height:100%;
 	position: absolute;
+	min-width:100%;
+	min-height:100%;
 	left:0;
 	top:0;
 	animation: backgroundSize 3s;
